@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendHub – About Us</title>
+  <script src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* =========================================
+       TrendHub – About Us | Embedded CSS
+       Cartoonic-Elegant Pastel Theme
+       ========================================= */
+
+    :root {
+      --pink:          #ffd6e7;
+      --pink-deep:     #ff85a1;
+      --lavender:      #e8d5f5;
+      --lavender-deep: #9b59b6;
+      --sky:           #c8e9fb;
+      --sky-deep:      #4a9fd5;
+      --cream:         #fffaf6;
+      --text-dark:     #3a2a4a;
+      --text-mid:      #7a6a8a;
+      --text-light:    #b0a0c0;
+      --shadow:        rgba(120,80,160,0.12);
+      --shadow-hover:  rgba(120,80,160,0.22);
+      --radius:        28px;
+      --radius-sm:     16px;
+      --font-head:     'Baloo 2', cursive;
+      --font-body:     'Nunito', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ---- Blobs ---- */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+      animation: blobFloat 8s ease-in-out infinite alternate;
+    }
+    .blob-1 { width:420px; height:420px; background:var(--pink);     top:-100px;  left:-120px; animation-delay:0s;  }
+    .blob-2 { width:350px; height:350px; background:var(--lavender); top:40%;     right:-100px; animation-delay:-3s; }
+    .blob-3 { width:300px; height:300px; background:var(--sky);      bottom:-80px; left:30%;   animation-delay:-5s; }
+
+    @keyframes blobFloat {
+      0%   { transform: translate(0,0) scale(1);       }
+      100% { transform: translate(30px,20px) scale(1.08); }
+    }
+
+    /* ---- Main Section ---- */
+    .about-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 72px 24px 80px;
+    }
+
+    /* ---- Header ---- */
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--lavender);
+      color: var(--lavender-deep);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: .85rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      border: 1.5px solid #d0b0e8;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem,5vw,3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-title .highlight {
+      color: var(--lavender-deep);
+      position: relative;
+      display: inline-block;
+    }
+    .section-title .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0;
+      width: 100%; height: 8px;
+      background: linear-gradient(90deg, var(--pink-deep), var(--sky-deep));
+      border-radius: 4px;
+      opacity: .35;
+      z-index: -1;
+    }
+    .section-subtitle {
+      font-size: 1.08rem;
+      color: var(--text-mid);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    /* ---- Grid ---- */
+    .cards-grid {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Card ---- */
+    .card {
+      position: relative;
+      background: white;
+      border-radius: var(--radius);
+      width: 310px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--shadow), 0 1px 4px rgba(0,0,0,.04);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease;
+      animation: fadeUp .7s ease both;
+      cursor: default;
+      border: 1.5px solid rgba(180,140,220,.1);
+    }
+    .card:nth-child(1) { animation-delay:.15s; }
+    .card:nth-child(2) { animation-delay:.28s; }
+    .card:nth-child(3) { animation-delay:.41s; }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 18px 48px var(--shadow-hover), 0 4px 12px rgba(0,0,0,.06);
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--radius) + 2px);
+      background: linear-gradient(135deg, var(--card-color), var(--card-accent));
+      opacity: 0;
+      z-index: -1;
+      transition: opacity .35s ease;
+    }
+    .card:hover::before { opacity: .5; }
+
+    .card-shine {
+      position: absolute;
+      top: 0; left: -80%;
+      width: 60%; height: 100%;
+      background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
+      pointer-events: none;
+      transition: left .6s ease;
+    }
+    .card:hover .card-shine { left: 130%; }
+
+    /* ---- Card Top ---- */
+    .card-top {
+      position: relative;
+      background: linear-gradient(160deg, var(--card-color) 0%, color-mix(in srgb, var(--card-color) 60%, white) 100%);
+      padding: 32px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card-top::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1px);
+      background-size: 18px 18px;
+      pointer-events: none;
+      opacity: .5;
+    }
+
+    /* ---- Avatar ---- */
+    .avatar-wrap {
+      position: relative;
+      z-index: 1;
+      width: 145px; height: 145px;
+      border-radius: 50%;
+      background: white;
+      box-shadow:
+        0 6px 20px rgba(0,0,0,.10),
+        0 0 0 4px rgba(255,255,255,.8),
+        0 0 0 8px color-mix(in srgb, var(--card-color) 80%, white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .card:hover .avatar-wrap { transform: scale(1.08) rotate(-2deg); }
+    .avatar-svg { width: 130px; height: auto; }
+
+    /* ---- Icon badge ---- */
+    .card-icon {
+      position: absolute;
+      top: 14px; right: 18px;
+      font-size: 1.5rem;
+      background: white;
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.1);
+      z-index: 2;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .card:hover .card-icon { transform: rotate(15deg) scale(1.15); }
+
+    /* ---- Card Body ---- */
+    .card-body { padding: 22px 24px 26px; text-align: center; }
+
+    .dev-name {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      letter-spacing: -.01em;
+    }
+    .dev-role {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--card-accent);
+      background: color-mix(in srgb, var(--card-color) 70%, white);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      border: 1.5px solid color-mix(in srgb, var(--card-color) 50%, var(--card-accent));
+    }
+    .dev-desc {
+      font-size: .9rem;
+      line-height: 1.68;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+    .fun-line {
+      font-size: .82rem;
+      font-style: italic;
+      color: var(--text-light);
+      background: color-mix(in srgb, var(--card-color) 40%, white);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      line-height: 1.5;
+      font-weight: 600;
+      border-left: 3px solid var(--card-accent);
+    }
+
+    .card-center { transform: translateY(-10px); }
+    .card-center:hover { transform: translateY(-20px) scale(1.03); }
+
+    /* ---- Bottom tagline ---- */
+    .bottom-tagline {
+      margin-top: 64px;
+      display: flex;
+      justify-content: center;
+      animation: fadeUp .8s ease .6s both;
+    }
+    .tagline-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border-radius: 999px;
+      padding: 14px 32px;
+      box-shadow: 0 4px 20px var(--shadow);
+      font-size: .95rem;
+      color: var(--text-mid);
+      font-weight: 600;
+      border: 1.5px solid rgba(180,140,220,.15);
+    }
+    .tagline-icon { font-size: 1.4rem; animation: swing 2.5s ease-in-out infinite; }
+    @keyframes swing {
+      0%,100% { transform: rotate(-8deg); }
+      50%      { transform: rotate(8deg);  }
+    }
+    .heart { color: var(--pink-deep); animation: heartbeat 1.2s ease-in-out infinite; display:inline-block; }
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1);    }
+      30%     { transform: scale(1.3);  }
+      60%     { transform: scale(.95);  }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width:980px) { .cards-grid { gap:22px; } .card { width:280px; } }
+    @media (max-width:720px) {
+      .about-section { padding:48px 16px 64px; }
+      .cards-grid { flex-direction:column; align-items:center; gap:24px; }
+      .card, .card-center { width:100%; max-width:360px; transform:none !important; }
+      .card:hover, .card-center:hover { transform:translateY(-6px) scale(1.01) !important; }
+      .section-title { font-size:1.9rem; }
+      .tagline-inner { flex-direction:column; text-align:center; padding:16px 24px; border-radius:24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <main class="about-section">
+
+    <div class="section-header">
+      <span class="badge">✨ Our Story</span>
+      <h1 class="section-title">Meet the <span class="highlight">TrendHub</span> Team</h1>
+      <p class="section-subtitle">
+        Three passionate creators who dreamed up TrendHub from scratch — blending style, code, and a whole lot of sparkle ✨
+      </p>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- ─── Card 1 – Frontend Developer ─── -->
+      <div class="card" style="--card-color:#ffd6e7; --card-accent:#ff85a1;">
+        <div class="card-top">
+          <div class="avatar-wrap">
+            <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" class="avatar-svg">
+              <ellipse cx="100" cy="200" rx="55" ry="35" fill="#ffb3c6"/>
+              <path d="M55 175 Q100 210 145 175 L140 145 Q100 165 60 145Z" fill="#ff85a1"/>
+              <path d="M60 145 Q100 160 140 145 L135 120 Q100 135 65 120Z" fill="#ffb3c6"/>
+              <rect x="90" y="110" width="20" height="18" rx="6" fill="#ffe0b2"/>
+              <ellipse cx="100" cy="80" rx="42" ry="38" fill="#5d3a1a"/>
+              <ellipse cx="100" cy="98" rx="35" ry="36" fill="#ffe0b2"/>
+              <path d="M62 78 Q75 50 100 55 Q125 50 138 78 Q130 60 100 62 Q70 60 62 78Z" fill="#5d3a1a"/>
+              <ellipse cx="66" cy="100" rx="10" ry="20" fill="#5d3a1a"/>
+              <ellipse cx="134" cy="100" rx="10" ry="20" fill="#5d3a1a"/>
+              <path d="M75 65 Q72 80 78 85" stroke="#5d3a1a" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path d="M100 60 Q100 76 100 82" stroke="#5d3a1a" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path d="M125 65 Q128 80 122 85" stroke="#5d3a1a" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <ellipse cx="86" cy="98" rx="7" ry="8" fill="white"/>
+              <ellipse cx="114" cy="98" rx="7" ry="8" fill="white"/>
+              <circle cx="87" cy="99" r="5" fill="#3d2b1f"/>
+              <circle cx="115" cy="99" r="5" fill="#3d2b1f"/>
+              <circle cx="89" cy="97" r="1.5" fill="white"/>
+              <circle cx="117" cy="97" r="1.5" fill="white"/>
+              <path d="M80 93 Q82 90 86 92" stroke="#3d2b1f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M108 92 Q112 90 120 93" stroke="#3d2b1f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="78" cy="108" rx="9" ry="5" fill="#ffb3c6" opacity="0.6"/>
+              <ellipse cx="122" cy="108" rx="9" ry="5" fill="#ffb3c6" opacity="0.6"/>
+              <path d="M88 115 Q100 125 112 115" stroke="#d4845a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M94 119 Q100 124 106 119" fill="#ffb3c6" opacity="0.7"/>
+              <path d="M118 65 Q130 55 138 65 Q130 72 118 65Z" fill="#ff85a1"/>
+              <path d="M138 65 Q150 55 155 65 Q148 72 138 65Z" fill="#ff85a1"/>
+              <circle cx="138" cy="65" r="5" fill="#ff4d79"/>
+              <rect x="72" y="155" width="36" height="24" rx="4" fill="#c9e4ff" stroke="#7ab8f5" stroke-width="1.5"/>
+              <rect x="74" y="157" width="32" height="18" rx="2" fill="#e8f4ff"/>
+              <rect x="68" y="179" width="44" height="4" rx="2" fill="#7ab8f5"/>
+              <rect x="77" y="161" width="12" height="2" rx="1" fill="#ff85a1" opacity="0.8"/>
+              <rect x="77" y="165" width="20" height="2" rx="1" fill="#b39ddb" opacity="0.8"/>
+              <rect x="77" y="169" width="16" height="2" rx="1" fill="#ff85a1" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="card-icon">💻</div>
+        </div>
+        <div class="card-body">
+          <h2 class="dev-name">Mansi</h2>
+          <span class="dev-role">Frontend</span>
+          <p class="dev-desc">Roll no.= 2411700<br>B.Tech CSE-2 [G1]</p>
+          <p class="fun-line">🌸 "If it doesn't look cute, it's not done yet!"</p>
+        </div>
+        <div class="card-shine"></div>
+      </div>
+
+      <!-- ─── Card 2 – Backend Developer ─── -->
+      <div class="card card-center" style="--card-color:#d4b8e0; --card-accent:#9b59b6;">
+        <div class="card-top">
+          <div class="avatar-wrap">
+            <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" class="avatar-svg">
+              <ellipse cx="100" cy="200" rx="55" ry="35" fill="#ce93d8"/>
+              <path d="M55 175 Q100 210 145 175 L140 145 Q100 165 60 145Z" fill="#9b59b6"/>
+              <path d="M60 145 Q100 160 140 145 L135 120 Q100 135 65 120Z" fill="#ce93d8"/>
+              <rect x="90" y="110" width="20" height="18" rx="6" fill="#ffd5b8"/>
+              <ellipse cx="100" cy="80" rx="43" ry="40" fill="#8d5524"/>
+              <ellipse cx="100" cy="100" rx="33" ry="34" fill="#ffd5b8"/>
+              <path d="M60 85 Q70 48 100 52 Q130 48 140 85 Q128 58 100 60 Q72 58 60 85Z" fill="#8d5524"/>
+              <path d="M138 78 Q155 90 150 115 Q145 130 138 120 Q145 100 138 78Z" fill="#8d5524"/>
+              <ellipse cx="67" cy="102" rx="9" ry="18" fill="#8d5524"/>
+              <ellipse cx="86" cy="98" rx="8" ry="9" fill="white"/>
+              <ellipse cx="114" cy="98" rx="8" ry="9" fill="white"/>
+              <circle cx="87" cy="99" r="5.5" fill="#1a0a00"/>
+              <circle cx="115" cy="99" r="5.5" fill="#1a0a00"/>
+              <circle cx="89" cy="97" r="1.8" fill="white"/>
+              <circle cx="117" cy="97" r="1.8" fill="white"/>
+              <text x="83" y="104" font-size="6" fill="#ce93d8">✦</text>
+              <text x="111" y="104" font-size="6" fill="#ce93d8">✦</text>
+              <path d="M79 88 Q86 84 93 87" stroke="#8d5524" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M107 87 Q114 84 121 88" stroke="#8d5524" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="77" cy="109" rx="9" ry="5" fill="#f48fb1" opacity="0.5"/>
+              <ellipse cx="123" cy="109" rx="9" ry="5" fill="#f48fb1" opacity="0.5"/>
+              <path d="M90 118 Q95 124 100 120 Q105 124 110 118" stroke="#c0674a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <rect x="126" y="72" width="14" height="8" rx="4" fill="#f3e5f5" stroke="#9b59b6" stroke-width="1.5"/>
+              <circle cx="133" cy="76" r="2" fill="#9b59b6"/>
+              <circle cx="100" cy="162" r="14" fill="#e8daef" stroke="#9b59b6" stroke-width="2"/>
+              <circle cx="100" cy="162" r="7" fill="white" stroke="#9b59b6" stroke-width="1.5"/>
+              <circle cx="100" cy="162" r="3" fill="#9b59b6"/>
+              <rect x="97" y="146" width="6" height="5" rx="1.5" fill="#9b59b6"/>
+              <rect x="97" y="175" width="6" height="5" rx="1.5" fill="#9b59b6"/>
+              <rect x="84" y="159" width="5" height="6" rx="1.5" fill="#9b59b6"/>
+              <rect x="111" y="159" width="5" height="6" rx="1.5" fill="#9b59b6"/>
+            </svg>
+          </div>
+          <div class="card-icon">⚙️</div>
+        </div>
+        <div class="card-body">
+          <h2 class="dev-name">Mankirat Kaur</h2>
+          <span class="dev-role">Backend</span>
+          <p class="dev-desc">Roll no.=2411697<br>B.Tech CSE-2 [G1]</p>
+          <p class="fun-line">⚡ "Bugs? I prefer to call them surprise features."</p>
+        </div>
+        <div class="card-shine"></div>
+      </div>
+
+      <!-- ─── Card 3 – UI/UX Designer ─── -->
+      <div class="card" style="--card-color:#b3d9f2; --card-accent:#4a9fd5;">
+        <div class="card-top">
+          <div class="avatar-wrap">
+            <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" class="avatar-svg">
+              <ellipse cx="100" cy="200" rx="55" ry="35" fill="#81c9f0"/>
+              <path d="M55 175 Q100 210 145 175 L140 145 Q100 165 60 145Z" fill="#4a9fd5"/>
+              <path d="M60 145 Q100 160 140 145 L135 120 Q100 135 65 120Z" fill="#81c9f0"/>
+              <rect x="90" y="110" width="20" height="18" rx="6" fill="#ffe5c8"/>
+              <ellipse cx="100" cy="98" rx="35" ry="36" fill="#ffe5c8"/>
+              <ellipse cx="100" cy="78" rx="43" ry="38" fill="#2c1810"/>
+              <ellipse cx="100" cy="100" rx="33" ry="34" fill="#ffe5c8"/>
+              <path d="M62 88 Q68 50 100 54 Q132 50 138 88 Q128 62 100 63 Q72 62 62 88Z" fill="#2c1810"/>
+              <circle cx="73" cy="60" r="15" fill="#2c1810"/>
+              <circle cx="127" cy="60" r="15" fill="#2c1810"/>
+              <circle cx="68" cy="55" r="4" fill="#4a3728" opacity="0.5"/>
+              <circle cx="122" cy="55" r="4" fill="#4a3728" opacity="0.5"/>
+              <ellipse cx="85" cy="99" rx="9" ry="10" fill="white"/>
+              <ellipse cx="115" cy="99" rx="9" ry="10" fill="white"/>
+              <circle cx="86" cy="100" r="6" fill="#1a0a00"/>
+              <circle cx="116" cy="100" r="6" fill="#1a0a00"/>
+              <circle cx="88" cy="98" r="2" fill="white"/>
+              <circle cx="118" cy="98" r="2" fill="white"/>
+              <line x1="77" y1="92" x2="79" y2="89" stroke="#2c1810" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="83" y1="90" x2="84" y2="87" stroke="#2c1810" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="89" y1="90" x2="91" y2="87" stroke="#2c1810" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="111" y1="90" x2="109" y2="87" stroke="#2c1810" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="117" y1="90" x2="116" y2="87" stroke="#2c1810" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="123" y1="92" x2="121" y2="89" stroke="#2c1810" stroke-width="1.5" stroke-linecap="round"/>
+              <ellipse cx="74" cy="110" rx="10" ry="6" fill="#f9a8c9" opacity="0.6"/>
+              <ellipse cx="126" cy="110" rx="10" ry="6" fill="#f9a8c9" opacity="0.6"/>
+              <path d="M86 118 Q100 132 114 118" fill="#ff9fb0" stroke="#d4845a" stroke-width="1.5"/>
+              <path d="M89 118 Q100 124 111 118" fill="white"/>
+              <ellipse cx="100" cy="163" rx="16" ry="13" fill="#e3f4ff" stroke="#4a9fd5" stroke-width="2"/>
+              <circle cx="90" cy="160" r="4" fill="#ff85a1"/>
+              <circle cx="100" cy="157" r="4" fill="#ffd54f"/>
+              <circle cx="110" cy="160" r="4" fill="#80cbc4"/>
+              <circle cx="106" cy="169" r="4" fill="#ce93d8"/>
+              <circle cx="94" cy="169" r="4" fill="#4a9fd5"/>
+              <circle cx="115" cy="168" r="4" fill="white" stroke="#4a9fd5" stroke-width="1.5"/>
+              <circle cx="73" cy="47" r="5" fill="#81c9f0"/>
+              <circle cx="127" cy="47" r="5" fill="#81c9f0"/>
+            </svg>
+          </div>
+          <div class="card-icon">🎨</div>
+        </div>
+        <div class="card-body">
+          <h2 class="dev-name">Navdeep Kaur</h2>
+          <span class="dev-role">Frontend and UI/UX</span>
+          <p class="dev-desc">Roll No.=2411720<br>B.Tech CSE-2[G1]</p>
+          <p class="fun-line">🎀 "Good design is invisible; great design makes you smile!"</p>
+        </div>
+        <div class="card-shine"></div>
+      </div>
+
+    </div><!-- /cards-grid -->
+
+    <div class="bottom-tagline">
+      <div class="tagline-inner">
+        <span class="tagline-icon">🛍️</span>
+        <p>Built with <span class="heart">♥</span> and endless cups of chai ☕ — TrendHub is where fashion meets code.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    /* ── Intersection Observer: animate cards on scroll ── */
+    const animTargets = document.querySelectorAll('.card, .section-header, .bottom-tagline');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    animTargets.forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+
+    /* ── 3D tilt on cards ── */
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        const cx = r.width/2, cy = r.height/2;
+        const tX = ((y-cy)/cy)*6, tY = ((x-cx)/cx)*-6;
+        card.style.transform = `translateY(-10px) scale(1.02) rotateX(${tX}deg) rotateY(${tY}deg)`;
+        card.style.transition = 'transform 0.1s ease';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 0.45s cubic-bezier(.34,1.56,.64,1)';
+        card.style.transform  = card.classList.contains('card-center')
+          ? 'translateY(-10px)' : 'translateY(0) scale(1)';
+      });
+    });
+
+    /* ── Sparkle burst on click ── */
+    const SPARKLE = ['✨','⭐','🌸','💫','🎀','🌟','✦'];
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', e => {
+        for (let i = 0; i < 7; i++) {
+          const el = document.createElement('span');
+          el.textContent = SPARKLE[Math.floor(Math.random()*SPARKLE.length)];
+          const angle = (360/7)*i + Math.random()*20, dist = 60+Math.random()*70;
+          const rad = angle*Math.PI/180;
+          const tx = Math.cos(rad)*dist, ty = Math.sin(rad)*dist;
+          Object.assign(el.style, {
+            position:'fixed', left:`${e.clientX}px`, top:`${e.clientY}px`,
+            fontSize:`${14+Math.random()*14}px`, pointerEvents:'none',
+            userSelect:'none', zIndex:9999, opacity:1,
+            transform:'translate(-50%,-50%)', transition:'none', willChange:'transform,opacity'
+          });
+          document.body.appendChild(el);
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            el.style.transition = 'transform 0.8s cubic-bezier(.22,1,.36,1), opacity 0.8s ease';
+            el.style.transform  = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`;
+            el.style.opacity    = '0';
+          }));
+          setTimeout(() => el.remove(), 900);
+        }
+      });
+    });
+
+    /* ── Avatar wiggle ── */
+    const wiggleStyle = document.createElement('style');
+    wiggleStyle.textContent = `
+      @keyframes wiggle {
+        0%   { transform: rotate(0deg) scale(1.08); }
+        20%  { transform: rotate(-5deg) scale(1.1); }
+        40%  { transform: rotate(5deg) scale(1.1); }
+        60%  { transform: rotate(-3deg) scale(1.09); }
+        80%  { transform: rotate(3deg) scale(1.09); }
+        100% { transform: rotate(0deg) scale(1.08); }
+      }`;
+    document.head.appendChild(wiggleStyle);
+    document.querySelectorAll('.avatar-wrap').forEach(av => {
+      av.addEventListener('mouseenter', () => av.style.animation = 'wiggle 0.4s ease');
+      av.addEventListener('animationend',  () => av.style.animation = '');
+    });
+
+    /* ── Blob parallax ── */
+    const blobs = [
+      { el: document.querySelector('.blob-1'), sx:18,  sy:14  },
+      { el: document.querySelector('.blob-2'), sx:-14, sy:18  },
+      { el: document.querySelector('.blob-3'), sx:12,  sy:-12 },
+    ];
+    document.addEventListener('mousemove', e => {
+      const mx = (e.clientX/window.innerWidth  - .5)*2;
+      const my = (e.clientY/window.innerHeight - .5)*2;
+      blobs.forEach(({el,sx,sy}) => {
+        if (!el) return;
+        el.style.transform  = `translate(${mx*sx}px,${my*sy}px)`;
+        el.style.transition = 'transform 0.6s ease';
+      });
+    });
+  </script>
+</body>
+</html>

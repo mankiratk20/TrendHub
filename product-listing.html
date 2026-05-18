@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendHub — Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f5f0eb;
+      color: #2e2e3a;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid #fde8d8;
+      padding: 0 6%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.6rem;
+      color: #f4845f;
+    }
+    .logo span { color: #3cbfa0; }
+
+    .nav-cart {
+      background: #fff4c2;
+      border: 2px solid #f5d96a;
+      color: #b07e00;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    
+    /* ── PAGE HEADER ── */
+    .page-header {
+      text-align: center;
+      padding: 48px 6% 28px;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .page-header h1 span { color: #f4845f; }
+
+    .page-header p {
+      margin-top: 8px;
+      color: #7a7a8c;
+      font-weight: 600;
+      font-size: 0.97rem;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 24px;
+      padding: 0 6% 70px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid #f0ece6;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+    }
+
+    .card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 16px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .card-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 50px;
+      width: fit-content;
+    }
+
+    .tag-fashion  { background: #fde0d0; color: #c05030; }
+    .tag-bags     { background: #c4eddf; color: #1e7a5a; }
+    .tag-acc      { background: #fceea0; color: #907000; }
+    .tag-tech     { background: #d8ccf5; color: #5a3b9a; }
+    .tag-home     { background: #daf0fc; color: #1a6a9a; }
+    .tag-winter   { background: #ffe4f0; color: #b03070; }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #2e2e3a;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: #7a7a8c;
+      font-weight: 600;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .card-price {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #2e2e3a;
+    }
+
+    .btn-add {
+      background: #f4845f;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-add:hover { background: #e06a45; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #2e2e3a;
+      color: #aaa;
+      text-align: center;
+      padding: 22px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    footer span { color: #f4845f; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">Trend<span>Hub</span></div>
+      <a href="cart-system.html"><button class="nav-cart">🛒 Cart</button></a> 
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>All <span>Products</span></h1>
+    <p>12 handpicked items just for you</p>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Sneakers"/>
+      <div class="card-body">
+        <span class="card-tag tag-fashion">Footwear</span>
+        <div class="card-name">Cloud Stride Sneakers</div>
+        <div class="card-desc">Ultra-light everyday sneakers with memory-foam insoles.</div>
+        <div class="card-footer">
+          <div class="card-price">₹1,299</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Backpack"/>
+      <div class="card-body">
+        <span class="card-tag tag-bags">Bags</span>
+        <div class="card-name">Mini Canvas Backpack</div>
+        <div class="card-desc">Compact, water-resistant, and stylish for daily use.</div>
+        <div class="card-footer">
+          <div class="card-price">₹899</div>
+          <button class="btn-add" >+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80" alt="Sunglasses"/>
+      <div class="card-body">
+        <span class="card-tag tag-acc">Accessories</span>
+        <div class="card-name">Retro Round Sunglasses</div>
+        <div class="card-desc">UV400 polarised lenses in a timeless round frame.</div>
+        <div class="card-footer">
+          <div class="card-price">₹549</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Watch"/>
+      <div class="card-body">
+        <span class="card-tag tag-acc">Watches</span>
+        <div class="card-name">Minimal Dial Watch</div>
+        <div class="card-desc">Clean dial, leather strap — effortlessly elegant on any wrist.</div>
+        <div class="card-footer">
+          <div class="card-price">₹2,199</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&q=80" alt="Perfume"/>
+      <div class="card-body">
+        <span class="card-tag tag-acc">Beauty</span>
+        <div class="card-name">Bloom Eau de Parfum</div>
+        <div class="card-desc">A fresh floral scent with hints of jasmine and sandalwood.</div>
+        <div class="card-footer">
+          <div class="card-price">₹1,799</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80" alt="Running Shoes"/>
+      <div class="card-body">
+        <span class="card-tag tag-fashion">Footwear</span>
+        <div class="card-name">Pace Runner Pro</div>
+        <div class="card-desc">Breathable mesh upper with cushioned sole for long runs.</div>
+        <div class="card-footer">
+          <div class="card-price">₹1,999</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&q=80" alt="Camera"/>
+      <div class="card-body">
+        <span class="card-tag tag-tech">Tech</span>
+        <div class="card-name">Instant Film Camera</div>
+        <div class="card-desc">Capture memories instantly with this retro-style film camera.</div>
+        <div class="card-footer">
+          <div class="card-price">₹3,499</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&q=80" alt="Water Bottle"/>
+      <div class="card-body">
+        <span class="card-tag tag-home">Home</span>
+        <div class="card-name">Matte Steel Bottle</div>
+        <div class="card-desc">Double-wall insulated — keeps drinks cold for 24 hrs.</div>
+        <div class="card-footer">
+          <div class="card-price">₹699</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80" alt="Scarf"/>
+      <div class="card-body">
+        <span class="card-tag tag-winter">Winter</span>
+        <div class="card-name">Cozy Knit Scarf</div>
+        <div class="card-desc">Chunky knit scarf in soft wool blend — warm and trendy.</div>
+        <div class="card-footer">
+          <div class="card-price">₹649</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80" alt="Tote Bag"/>
+      <div class="card-body">
+        <span class="card-tag tag-bags">Bags</span>
+        <div class="card-name">Linen Tote Bag</div>
+        <div class="card-desc">Spacious, eco-friendly linen tote — great for shopping trips.</div>
+        <div class="card-footer">
+          <div class="card-price">₹449</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&q=80" alt="Candle"/>
+      <div class="card-body">
+        <span class="card-tag tag-home">Home</span>
+        <div class="card-name">Vanilla Soy Candle</div>
+        <div class="card-desc">Hand-poured soy wax candle with a calming vanilla scent.</div>
+        <div class="card-footer">
+          <div class="card-price">₹349</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Headphones"/>
+      <div class="card-body">
+        <span class="card-tag tag-tech">Tech</span>
+        <div class="card-name">Wireless Headphones</div>
+        <div class="card-desc">40hr battery, active noise-cancellation, premium sound.</div>
+        <div class="card-footer">
+          <div class="card-price">₹4,999</div>
+          <button class="btn-add">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Made with <span>♥</span> by TrendHub &nbsp;·&nbsp; © 2026 All rights reserved</footer>
+
+</body>
+</html>

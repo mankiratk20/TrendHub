@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendHub — Checkout</title>
+  <script src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── VARIABLES ── */
+    :root {
+      --cream:   #fef9f2;
+      --peach:   #fde8d8;
+      --coral:   #f4845f;
+      --coral-d: #e06a45;
+      --teal:    #3cbfa0;
+      --teal-d:  #2da88c;
+      --lemon:   #fff8dc;
+      --lilac:   #ede4ff;
+      --mint:    #d4f0e8;
+      --muted:   #7a7a8c;
+      --dark:    #2e2e3a;
+      --border:  #f0e8e0;
+      --error:   #e05050;
+      --white:   #ffffff;
+    }
+
+    /* ── BODY ── */
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* background blobs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    body::before {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #fde8d8 0%, transparent 70%);
+      top: -100px; right: -80px;
+    }
+    body::after {
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, #d4f0e8 0%, transparent 70%);
+      bottom: -80px; left: -60px;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--white);
+      border-bottom: 2.5px solid var(--peach);
+      padding: 0 5%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+    }
+    .logo { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--coral); text-decoration: none; }
+    .logo span { color: var(--teal); }
+    .nav-back {
+      background: var(--lemon);
+      border: 2px solid #f5d96a;
+      color: #b07e00;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 8px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 5% 60px;
+    }
+
+    .page-title {
+      font-size: 1.7rem;
+      font-weight: 900;
+      margin-bottom: 28px;
+    }
+    .page-title span { color: var(--coral); }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ── CARDS (shared) ── */
+    .panel {
+      background: var(--white);
+      border-radius: 24px;
+      border: 2.5px solid var(--border);
+      padding: 28px 26px;
+    }
+
+    .panel-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-title .icon {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .icon-peach  { background: var(--peach); }
+    .icon-mint   { background: var(--mint); }
+    .icon-lilac  { background: var(--lilac); }
+    .icon-lemon  { background: var(--lemon); }
+
+    /* ── FORM GROUPS ── */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group { margin-bottom: 14px; }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 5px;
+      letter-spacing: 0.3px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="month"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--dark);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      resize: none;
+    }
+    input::placeholder, textarea::placeholder { color: #c5bdb5; font-weight: 600; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--coral);
+      background: var(--white);
+    }
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: var(--error);
+      background: #fff5f5;
+    }
+
+    .error-msg {
+      display: none;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--error);
+      margin-top: 4px;
+      padding-left: 2px;
+    }
+    .error-msg.show { display: block; }
+
+    /* ── PAYMENT METHODS ── */
+    .payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .pay-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 2.5px solid var(--border);
+      border-radius: 14px;
+      padding: 11px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--dark);
+    }
+    .pay-option:hover { border-color: var(--coral); background: #fff7f4; }
+    .pay-option input[type="radio"] { display: none; }
+    .pay-option.selected { border-color: var(--coral); background: var(--peach); }
+
+    .pay-icon { font-size: 1.3rem; }
+
+    /* conditional payment fields */
+    .pay-fields {
+      display: none;
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 16px 14px;
+      margin-top: 4px;
+      border: 2px solid var(--border);
+    }
+    .pay-fields.active { display: block; }
+
+    .card-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ── ORDER SUMMARY ── */
+    .order-items { list-style: none; margin-bottom: 16px; }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1.5px dashed var(--border);
+      font-size: 0.88rem;
+    }
+    .order-item:last-child { border-bottom: none; }
+
+    .oi-name { font-weight: 700; color: var(--dark); }
+    .oi-qty  { font-size: 0.76rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
+    .oi-price { font-weight: 900; color: var(--coral); white-space: nowrap; }
+
+    .empty-cart-msg {
+      text-align: center;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 20px 0;
+    }
+
+    /* totals */
+    .total-rows { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .total-row.grand {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--dark);
+      padding-top: 10px;
+      border-top: 2px solid var(--border);
+    }
+
+    /* promo badge */
+    .free-ship {
+      background: var(--mint);
+      color: #1e7a5a;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    /* ── PLACE ORDER BUTTON ── */
+    .btn-order {
+      display: block;
+      width: 100%;
+      padding: 14px 0;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(60, 191, 160, 0.28);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      margin-top: 4px;
+    }
+    .btn-order:hover {
+      background: var(--teal-d);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(60, 191, 160, 0.32);
+    }
+    .btn-order:active { transform: translateY(0); }
+
+    /* ── SUCCESS OVERLAY ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(46, 46, 58, 0.45);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay.show { display: flex; }
+
+    .success-box {
+      background: var(--white);
+      border-radius: 28px;
+      padding: 46px 40px;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+    .success-icon { font-size: 4rem; margin-bottom: 14px; }
+    .success-box h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; }
+    .success-box h2 span { color: var(--teal); }
+    .success-box p { font-size: 0.9rem; color: var(--muted); font-weight: 600; line-height: 1.6; }
+    .success-redirect {
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .redirect-bar {
+      height: 5px;
+      background: var(--border);
+      border-radius: 50px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .redirect-fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 50px;
+      width: 0%;
+      transition: width 3s linear;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--dark);
+      color: var(--white);
+      padding: 11px 26px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 200;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.error { background: var(--error); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 780px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+      .form-row      { grid-template-columns: 1fr; }
+      .payment-options { grid-template-columns: 1fr 1fr; }
+      .card-row      { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .payment-options { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a class="logo" href="trendhub.html">Trend<span>Hub</span></a>
+    <a class="nav-back" href="trendhub.html">← Back to Shop</a>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page">
+    <div class="page-title">🛍️ <span>Checkout</span></div>
+
+    <div class="checkout-grid">
+
+      <!-- ══ LEFT: FORMS ══ -->
+      <div>
+
+        <!-- DELIVERY DETAILS -->
+        <div class="panel" style="margin-bottom: 24px;">
+          <div class="panel-title">
+            <span class="icon icon-peach">📦</span>
+            Delivery Details
+          </div>
+<form action="order_process.php" method="POST">
+          <div class="form-group">
+            <label for="d-name">Full Name</label>
+            <input type="text" id="d-name" name="name" placeholder="e.g. Riya Sharma"/>
+            <span class="error-msg" id="err-d-name">Full name is required.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="d-phone">Phone Number</label>
+            <input type="tel" id="d-phone" name="phone" placeholder="10-digit mobile number" maxlength="10"/>
+            <span class="error-msg" id="err-d-phone">Enter a valid 10-digit phone number.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="d-address">Address</label>
+            <textarea id="d-address" name="address" rows="2" placeholder="Street, Landmark"></textarea>
+            <span class="error-msg" id="err-d-address">Address is required.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="d-city">City</label>
+              <input type="text" id="d-city" name="city" placeholder="e.g. Chandigarh"/>
+              <span class="error-msg" id="err-d-city">City is required.</span>
+            </div>
+            <div class="form-group">
+              <label for="d-pin">Pincode</label>
+              <input type="text" id="d-pin" name="pincode" placeholder="6-digit PIN" maxlength="6"/>
+              <span class="error-msg" id="err-d-pin">Enter a valid 6-digit pincode.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYMENT METHOD -->
+        <div class="panel">
+          <div class="panel-title">
+            <span class="icon icon-mint">💳</span>
+            Payment Method
+          </div>
+
+          <!-- Radio buttons styled as tiles -->
+          <div class="payment-options">
+            <label class="pay-option" id="tile-cod" onclick="selectPayment('cod')">
+              <input type="radio" name="payment" value="cod" id="pay-cod" checked/>
+              <span class="pay-icon">🚚</span> Cash on Delivery
+            </label>
+            <label class="pay-option" id="tile-upi" onclick="selectPayment('upi')">
+              <input type="radio" name="payment" value="upi" id="pay-upi"/>
+              <span class="pay-icon">📱</span> UPI
+            </label>
+            <label class="pay-option" id="tile-net" onclick="selectPayment('net')">
+              <input type="radio" name="payment" value="net" id="pay-net"/>
+              <span class="pay-icon">🏦</span> Net Banking
+            </label>
+            <label class="pay-option" id="tile-card" onclick="selectPayment('card')">
+              <input type="radio" name="payment" value="card" id="pay-card"/>
+              <span class="pay-icon">💳</span> Debit / Credit Card
+            </label>
+          </div>
+
+          <!-- COD — no extra fields -->
+          <div class="pay-fields active" id="fields-cod">
+            <p style="font-size:0.88rem;font-weight:700;color:var(--muted);">
+              💵 Pay with cash when your order arrives. No extra charges!
+            </p>
+          </div>
+
+          <!-- UPI -->
+          <div class="pay-fields" id="fields-upi">
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="upi-id">UPI ID</label>
+              <input type="text" id="upi-id" placeholder="yourname@upi"/>
+              <span class="error-msg" id="err-upi">Enter a valid UPI ID (e.g. name@upi).</span>
+            </div>
+          </div>
+
+          <!-- Net Banking -->
+          <div class="pay-fields" id="fields-net">
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="bank-select">Select Your Bank</label>
+              <select id="bank-select">
+                <option value="">— Choose a Bank —</option>
+                <option>State Bank of India (SBI)</option>
+                <option>HDFC Bank</option>
+                <option>ICICI Bank</option>
+                <option>Axis Bank</option>
+                <option>Punjab National Bank</option>
+                <option>Kotak Mahindra Bank</option>
+                <option>Bank of Baroda</option>
+                <option>Canara Bank</option>
+              </select>
+              <span class="error-msg" id="err-bank">Please select a bank.</span>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="pay-fields" id="fields-card">
+            <div class="form-group">
+              <label for="card-num">Card Number</label>
+              <input type="text" id="card-num" placeholder="1234 5678 9012 3456" maxlength="19"/>
+              <span class="error-msg" id="err-card-num">Enter a valid 16-digit card number.</span>
+            </div>
+            <div class="card-row">
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="card-exp">Expiry Date</label>
+                <input type="month" id="card-exp"/>
+                <span class="error-msg" id="err-card-exp">Select expiry date.</span>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="card-cvv">CVV</label>
+                <input type="password" id="card-cvv" placeholder="•••" maxlength="3"/>
+                <span class="error-msg" id="err-card-cvv">Enter 3-digit CVV.</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /panel payment -->
+      </div><!-- /left col -->
+    </form>
+
+      <!-- ══ RIGHT: ORDER SUMMARY ══ -->
+      <div>
+        <div class="panel" style="position:sticky;top:20px;">
+          <div class="panel-title">
+            <span class="icon icon-lemon">🧾</span>
+            Order Summary
+          </div>
+
+          <div id="free-ship-badge" style="display:none;">
+            <span class="free-ship">🎉 Free Shipping Applied!</span>
+          </div>
+
+          <!-- Cart items list -->
+          <ul class="order-items" id="order-items">
+            <li class="empty-cart-msg">Cart is empty.</li>
+          </ul>
+
+          <!-- Totals -->
+          <div class="total-rows">
+            <div class="total-row"><span>Subtotal</span><span id="sum-subtotal">₹0</span></div>
+            <div class="total-row"><span>Shipping</span><span id="sum-shipping">₹99</span></div>
+            <div class="total-row grand"><span>Grand Total</span><span id="sum-grand">₹99</span></div>
+          </div>
+
+          <button type="button" class="btn-order" onclick="placeOrder()">✅ Place Order</button>
+
+        </div>
+      </div>
+
+    </div><!-- /checkout-grid -->
+  </div><!-- /page -->
+</form>
+
+  <!-- SUCCESS OVERLAY -->
+  <div class="overlay" id="overlay">
+    <div class="success-box">
+      <div class="success-icon">🎉</div>
+      <h2>Order <span>Placed!</span></h2>
+      <p>Thank you for shopping with TrendHub! Your order is confirmed and will be delivered soon.</p>
+      <div class="success-redirect">Redirecting to homepage…</div>
+      <div class="redirect-bar"><div class="redirect-fill" id="redirect-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ═══════════════════════════════════════
+       SECTION 1 — HELPERS
+    ═══════════════════════════════════════ */
+
+    /* Show a toast notification */
+    function showToast(msg, type) {
+      var toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.className = "toast " + (type || "");
+      toast.classList.add("show");
+      setTimeout(function() { toast.classList.remove("show"); }, 3000);
+    }
+
+    /* Mark a field as invalid and show its error message */
+    function showError(inputId, errId) {
+      var input = document.getElementById(inputId);
+      var err   = document.getElementById(errId);
+      if (input) input.classList.add("invalid");
+      if (err)   err.classList.add("show");
+    }
+
+    /* Clear all error states on the page */
+    function clearErrors() {
+      var els  = document.querySelectorAll("input, select, textarea");
+      var errs = document.querySelectorAll(".error-msg");
+      for (var i = 0; i < els.length;  i++) els[i].classList.remove("invalid");
+      for (var j = 0; j < errs.length; j++) errs[j].classList.remove("show");
+    }
+
+    /* Check 10-digit phone */
+    function isValidPhone(val) { return /^[0-9]{10}$/.test(val); }
+
+    /* Check 6-digit pincode */
+    function isValidPin(val) { return /^[0-9]{6}$/.test(val); }
+
+    /* Check UPI format like name@bank */
+    function isValidUPI(val) { return /^[\w.\-]+@[\w]+$/.test(val); }
+
+    /* Strip spaces and check 16-digit card */
+    function isValidCard(val) { return /^[0-9]{16}$/.test(val.replace(/\s/g, "")); }
+
+
+    /* ═══════════════════════════════════════
+       SECTION 2 — PAYMENT METHOD SELECTION
+    ═══════════════════════════════════════ */
+
+    var currentPayment = "cod"; /* tracks which method is selected */
+
+    function selectPayment(method) {
+      currentPayment = method;
+
+      /* Update tile highlight */
+      var tiles = ["cod", "upi", "net", "card"];
+      for (var i = 0; i < tiles.length; i++) {
+        var tile = document.getElementById("tile-" + tiles[i]);
+        if (tile) {
+          if (tiles[i] === method) {
+            tile.classList.add("selected");
+          } else {
+            tile.classList.remove("selected");
+          }
+        }
+      }
+
+      /* Check the right radio button */
+      var radio = document.getElementById("pay-" + method);
+      if (radio) radio.checked = true;
+
+      /* Show matching conditional fields, hide others */
+      var allFields = ["cod", "upi", "net", "card"];
+      for (var j = 0; j < allFields.length; j++) {
+        var fieldBox = document.getElementById("fields-" + allFields[j]);
+        if (fieldBox) {
+          if (allFields[j] === method) {
+            fieldBox.classList.add("active");
+          } else {
+            fieldBox.classList.remove("active");
+          }
+        }
+      }
+    }
+
+    /* Set COD as default selected on load */
+    selectPayment("cod");
+
+
+    /* ═══════════════════════════════════════
+       SECTION 3 — LOAD CART FROM LOCALSTORAGE
+    ═══════════════════════════════════════ */
+
+    function loadOrderSummary() {
+      var data = localStorage.getItem("trendhub_cart");
+      var cart = data ? JSON.parse(data) : [];
+
+      var listEl    = document.getElementById("order-items");
+      var subtotalEl = document.getElementById("sum-subtotal");
+      var shippingEl = document.getElementById("sum-shipping");
+      var grandEl    = document.getElementById("sum-grand");
+      var badgeEl    = document.getElementById("free-ship-badge");
+
+      /* Empty cart */
+      if (cart.length === 0) {
+        listEl.innerHTML = '<li class="empty-cart-msg">Your cart is empty.</li>';
+        subtotalEl.textContent = "₹0";
+        shippingEl.textContent = "₹99";
+        grandEl.textContent    = "₹99";
+        return;
+      }
+
+      /* Build order item rows */
+      var html     = "";
+      var subtotal = 0;
+
+      for (var i = 0; i < cart.length; i++) {
+        var item      = cart[i];
+        var lineTotal = item.price * item.qty;
+        subtotal      = subtotal + lineTotal;
+
+        html += '<li class="order-item">';
+        html +=   '<div>';
+        html +=     '<div class="oi-name">' + item.name + '</div>';
+        html +=     '<div class="oi-qty">Qty: ' + item.qty + '</div>';
+        html +=   '</div>';
+        html +=   '<div class="oi-price">₹' + lineTotal.toLocaleString() + '</div>';
+        html += '</li>';
+      }
+
+      listEl.innerHTML = html;
+
+      /* Free shipping on orders ≥ ₹999 */
+      var shipping = subtotal >= 999 ? 0 : 99;
+      var grand    = subtotal + shipping;
+
+      subtotalEl.textContent = "₹" + subtotal.toLocaleString();
+      shippingEl.textContent = shipping === 0 ? "FREE 🎉" : "₹" + shipping;
+      grandEl.textContent    = "₹" + grand.toLocaleString();
+
+      if (badgeEl) {
+        badgeEl.style.display = shipping === 0 ? "block" : "none";
+      }
+    }
+
+    /* Auto-format card number with spaces every 4 digits */
+    document.getElementById("card-num").addEventListener("input", function() {
+      var raw     = this.value.replace(/\D/g, "").substring(0, 16);
+      var spaced  = raw.match(/.{1,4}/g);
+      this.value  = spaced ? spaced.join(" ") : raw;
+    });
+
+    /* Allow only digits in phone and pin */
+    document.getElementById("d-phone").addEventListener("input", function() {
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
+    document.getElementById("d-pin").addEventListener("input", function() {
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
+
+
+    /* ═══════════════════════════════════════
+       SECTION 4 — FORM VALIDATION
+    ═══════════════════════════════════════ */
+
+    function validateDelivery() {
+      var name    = document.getElementById("d-name").value.trim();
+      var phone   = document.getElementById("d-phone").value.trim();
+      var address = document.getElementById("d-address").value.trim();
+      var city    = document.getElementById("d-city").value.trim();
+      var pin     = document.getElementById("d-pin").value.trim();
+      var ok      = true;
+
+      if (!name)              { showError("d-name",    "err-d-name");    ok = false; }
+      if (!isValidPhone(phone)){ showError("d-phone",  "err-d-phone");   ok = false; }
+      if (!address)           { showError("d-address", "err-d-address"); ok = false; }
+      if (!city)              { showError("d-city",    "err-d-city");    ok = false; }
+      if (!isValidPin(pin))   { showError("d-pin",     "err-d-pin");     ok = false; }
+
+      return ok;
+    }
+
+    function validatePayment() {
+      var ok = true;
+
+      if (currentPayment === "upi") {
+        var upi = document.getElementById("upi-id").value.trim();
+        if (!isValidUPI(upi)) { showError("upi-id", "err-upi"); ok = false; }
+      }
+
+      if (currentPayment === "net") {
+        var bank = document.getElementById("bank-select").value;
+        if (!bank) { showError("bank-select", "err-bank"); ok = false; }
+      }
+
+      if (currentPayment === "card") {
+        var cardNum = document.getElementById("card-num").value;
+        var cardExp = document.getElementById("card-exp").value;
+        var cardCvv = document.getElementById("card-cvv").value.trim();
+
+        if (!isValidCard(cardNum)) { showError("card-num", "err-card-num"); ok = false; }
+        if (!cardExp)              { showError("card-exp", "err-card-exp"); ok = false; }
+        if (!/^[0-9]{3}$/.test(cardCvv)) { showError("card-cvv", "err-card-cvv"); ok = false; }
+      }
+
+      return ok;
+    }
+
+
+    /* ═══════════════════════════════════════
+       SECTION 5 — PLACE ORDER
+    ═══════════════════════════════════════ */
+
+    function placeOrder() {
+      console.log('placeOrder clicked');
+      showToast('Placing order...', 'success');
+      clearErrors();
+
+      /* Check both delivery and payment sections */
+      var deliveryOk = validateDelivery();
+      var paymentOk  = validatePayment();
+
+      if (!deliveryOk || !paymentOk) {
+        showToast("⚠️ Please fix the errors before placing the order.", "error");
+        return;
+      }
+
+      /* Collect order data */
+      var cartData = localStorage.getItem("trendhub_cart") || "[]";
+      var totalAmount = document.getElementById("sum-grand").textContent.replace("₹", "").replace(",", "");
+
+      // Collect delivery address
+      var name = document.getElementById("d-name").value;
+      var phone = document.getElementById("d-phone").value;
+      var address = document.getElementById("d-address").value;
+      var city = document.getElementById("d-city").value;
+      var pin = document.getElementById("d-pin").value;
+      var shippingAddress = name + ", " + phone + "\n" + address + "\n" + city + " - " + pin;
+
+      var paymentMethod = currentPayment;
+
+      /* Create new XHR object for this request */
+      var xhr = new XMLHttpRequest();
+      
+      console.log("Creating AJAX request to order_process.php");
+      console.log("Cart data:", cartData);
+      console.log("Total amount:", totalAmount);
+      console.log("Shipping address:", shippingAddress);
+      console.log("Payment method:", paymentMethod);
+
+      xhr.onreadystatechange = function() {
+        console.log("AJAX readyState:", xhr.readyState, "status:", xhr.status);
+        if (xhr.readyState === 4) {
+          console.log("AJAX Final Status:", xhr.status);
+          console.log("AJAX Response Text:", xhr.responseText);
+          
+          if (xhr.status === 200) {
+            /* All valid — show success overlay */
+            console.log("Order successful! Showing overlay...");
+            var overlay = document.getElementById("overlay");
+            overlay.classList.add("show");
+
+            /* Animate the redirect progress bar */
+            setTimeout(function() {
+              document.getElementById("redirect-fill").style.width = "100%";
+            }, 50);
+
+            /* Clear cart from localStorage */
+            localStorage.removeItem("trendhub_cart");
+
+            /* Redirect to homepage after 3 seconds */
+            setTimeout(function() {
+              window.location.href = "trendhub.html";
+            }, 3200);
+          } else {
+            console.log("AJAX Error - Status:", xhr.status, "Response:", xhr.responseText);
+            showToast("❌ " + xhr.responseText, "error");
+          }
+        }
+      };
+
+      xhr.onerror = function() {
+        console.log("AJAX Network Error");
+        showToast("❌ Network error. Please check your connection.", "error");
+      };
+
+      xhr.ontimeout = function() {
+        console.log("AJAX Timeout");
+        showToast("❌ Request timed out.", "error");
+      };
+
+      xhr.open("POST", "order_process.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      var data = "cart_data=" + encodeURIComponent(cartData) +
+                 "&total_amount=" + encodeURIComponent(totalAmount) +
+                 "&shipping_address=" + encodeURIComponent(shippingAddress) +
+                 "&payment_method=" + encodeURIComponent(paymentMethod);
+
+      console.log("AJAX data being sent:", data);
+      xhr.send(data);
+      console.log("AJAX request sent!");
+    }
+
+
+    /* ═══════════════════════════════════════
+       INIT — Run on page load
+    ═══════════════════════════════════════ */
+    loadOrderSummary();
+    
+  </script>
+</body>
+</html>

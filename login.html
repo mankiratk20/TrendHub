@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendHub — Login</title>
+  <link rel="stylesheet" href="style_form.css"/>
+</head>
+<body>
+
+  <!-- LOGO -->
+  <div class="logo">Trend<span>Hub</span></div>
+  <div class="logo-sub">✦ your style, your way ✦</div>
+
+  <!-- CARD -->
+  <div class="card">
+    <div class="card-title">Welcome <span>back!</span></div>
+    <div class="card-sub">Login to continue shopping 🛍️</div>
+
+    <form id="login-form" novalidate>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+        />
+        <span class="error-msg" id="err-email">Please enter a valid email address.</span>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="pw-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+          />
+          <button type="button" class="pw-toggle" onclick="togglePw('password', this)" title="Show/hide password">👁️</button>
+        </div>
+        <span class="error-msg" id="err-password">Password must be at least 6 characters.</span>
+      </div>
+
+      <button type="submit" class="btn-primary">🔑 Login</button>
+
+    </form>
+
+    <div class="divider">or</div>
+
+    <div class="switch">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ── TOGGLE PASSWORD VISIBILITY ── */
+    function togglePw(inputId, btn) {
+      var input = document.getElementById(inputId);
+      if (input.type === "password") {
+        input.type = "text";
+        btn.textContent = "🙈";
+      } else {
+        input.type = "password";
+        btn.textContent = "👁️";
+      }
+    }
+
+    /* ── SHOW TOAST ── */
+    function showToast(msg, type) {
+      var toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.className = "toast " + (type || "");
+      toast.classList.add("show");
+      setTimeout(function() { toast.classList.remove("show"); }, 2800);
+    }
+
+    /* ── CLEAR ERRORS ── */
+    function clearErrors() {
+      var inputs = document.querySelectorAll("input");
+      var errors = document.querySelectorAll(".error-msg");
+      for (var i = 0; i < inputs.length; i++) inputs[i].classList.remove("invalid");
+      for (var j = 0; j < errors.length; j++) errors[j].classList.remove("show");
+    }
+
+    /* ── SHOW ERROR ── */
+    function showError(inputId, errId) {
+      document.getElementById(inputId).classList.add("invalid");
+      document.getElementById(errId).classList.add("show");
+    }
+
+    /* ── EMAIL REGEX CHECK ── */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    /* ── FORM VALIDATION ── */
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      var email    = document.getElementById("email").value.trim();
+      var password = document.getElementById("password").value;
+      var valid    = true;
+
+      if (!email || !isValidEmail(email)) {
+        showError("email", "err-email");
+        valid = false;
+      }
+
+      if (!password || password.length < 6) {
+        showError("password", "err-password");
+        valid = false;
+      }
+
+      if (!valid) {
+        showToast("⚠️ Please fix the errors above.", "error");
+        return;
+      }
+
+      /* All good — simulate login */
+      showToast("✔ Logged in successfully! Welcome back 🎉", "success");
+      setTimeout(function() { this.reset(); }.bind(this), 1000);
+    });
+  </script>
+    <script src="http://localhost/php1/myProjects/script.js"></script>
+</body>
+</html>

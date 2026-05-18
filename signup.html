@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendHub — Sign Up</title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style_form.css"/>
+
+</head>
+<body>
+
+  <!-- LOGO -->
+  <div class="logo">Trend<span>Hub</span></div>
+  <div class="logo-sub">✦ your style, your way ✦</div>
+
+  <!-- CARD -->
+  <div class="card">
+    <div class="card-title">Create <span>Account</span></div>
+    <div class="card-sub">Join TrendHub and start shopping ✨</div>
+
+    <form id="signup-form" novalidate method="POST" action="signup_process.php">
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="e.g. Riya Sharma"
+        />
+        <span class="error-msg" id="err-name">Name is required.</span>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+        />
+        <span class="error-msg" id="err-email">Please enter a valid email address.</span>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="pw-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="At least 6 characters"
+          />
+          <button type="button" class="pw-toggle" onclick="togglePw('password', this)" title="Show/hide password">👁️</button>
+        </div>
+        <span class="error-msg" id="err-password">Password must be at least 6 characters.</span>
+      </div>
+
+      <!-- Phone -->
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="10-digit mobile number"
+          maxlength="10"
+        />
+        <span class="error-msg" id="err-phone">Enter a valid 10-digit phone number.</span>
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <textarea
+          id="address"
+          name="address"
+          rows="3"
+          placeholder="Street, City, State, PIN"
+        ></textarea>
+        <span class="error-msg" id="err-address">Address is required.</span>
+      </div>
+
+      <button type="submit" class="btn-primary">🚀 Sign Up</button>
+
+    </form>
+
+    <div class="divider">or</div>
+
+    <div class="switch">
+      Already have an account? <a href="login.html">Login</a>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ── TOGGLE PASSWORD VISIBILITY ── */
+    function togglePw(inputId, btn) {
+      var input = document.getElementById(inputId);
+      if (input.type === "password") {
+        input.type = "text";
+        btn.textContent = "🙈";
+      } else {
+        input.type = "password";
+        btn.textContent = "👁️";
+      }
+    }
+
+    /* ── SHOW TOAST ── */
+    function showToast(msg, type) {
+      var toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.className = "toast " + (type || "");
+      toast.classList.add("show");
+      setTimeout(function() { toast.classList.remove("show"); }, 2800);
+    }
+
+    /* ── CLEAR ALL ERRORS ── */
+    function clearErrors() {
+      var inputs   = document.querySelectorAll("input, textarea");
+      var errors   = document.querySelectorAll(".error-msg");
+      for (var i = 0; i < inputs.length; i++)  inputs[i].classList.remove("invalid");
+      for (var j = 0; j < errors.length; j++)  errors[j].classList.remove("show");
+    }
+
+    /* ── SHOW ONE ERROR ── */
+    function showError(inputId, errId) {
+      document.getElementById(inputId).classList.add("invalid");
+      document.getElementById(errId).classList.add("show");
+    }
+
+    /* ── VALIDATORS ── */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function isValidPhone(phone) {
+      return /^[0-9]{10}$/.test(phone);
+    }
+
+    /* ── FORM SUBMISSION ── */
+    document.getElementById("signup-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      var name     = document.getElementById("name").value.trim();
+      var email    = document.getElementById("email").value.trim();
+      var password = document.getElementById("password").value;
+      var phone    = document.getElementById("phone").value.trim();
+      var address  = document.getElementById("address").value.trim();
+      var valid    = true;
+
+      /* Name — required */
+      if (!name) {
+        showError("name", "err-name");
+        valid = false;
+      }
+
+      /* Email — required + format */
+      if (!email || !isValidEmail(email)) {
+        showError("email", "err-email");
+        valid = false;
+      }
+
+      /* Password — required + min 6 chars */
+      if (!password || password.length < 6) {
+        showError("password", "err-password");
+        valid = false;
+      }
+
+      /* Phone — required + 10 digits only */
+      if (!phone || !isValidPhone(phone)) {
+        showError("phone", "err-phone");
+        valid = false;
+      }
+
+      /* Address — required */
+      if (!address) {
+        showError("address", "err-address");
+        valid = false;
+      }
+
+      if (!valid) {
+        showToast("⚠️ Please fix the errors above.", "error");
+        return;
+      }
+
+      /* All good — simulate signup */
+      showToast("🎉 Account created! Welcome to TrendHub!", "success");
+      setTimeout(function() { this.reset(); }.bind(this), 1000);
+    });
+
+    /* ── ALLOW ONLY DIGITS IN PHONE FIELD ── */
+    document.getElementById("phone").addEventListener("input", function() {
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
+  </script>
+</body>
+</html>
