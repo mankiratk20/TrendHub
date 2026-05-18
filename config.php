@@ -2,8 +2,8 @@
 // Database configuration
 $servername = "localhost";  // Usually localhost for local development
 $username = "root";         // Default MySQL username in XAMPP/WAMP
-$password = "MBeginner0101$#$#";             // Your MySQL root password
-$dbname = "trendhub";    // Your database name
+$password = "password";             // Your MySQL root password
+$dbname = "dbname";    // Your database name
 
 // Create connection without database first
 $conn = new mysqli($servername, $username, $password);
