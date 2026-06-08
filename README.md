@@ -2,6 +2,7 @@
 TrendHub is a web-based e-commerce shopping platform developed to provide users with a smooth and user-friendly online shopping experience.
 
 🚀 Features
+
 User registration & login system
 
 Product browsing and searching
@@ -38,7 +39,9 @@ Start Apache & MySQL
 Open in browser
 
 http://localhost/TrendHub
+
 💡 Key Highlights
+
 Secure authentication system
 
 Interactive shopping experience
@@ -48,6 +51,7 @@ Dynamic product management
 Database connectivity using MySQL
 
 📌 Future Improvements
+
 Payment gateway integration
 
 AI-based product recommendations
