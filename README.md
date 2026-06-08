@@ -24,11 +24,13 @@ JavaScript
 MySQL
 
 How to Run
+
 Install XAMPP/WAMP server
 
 Move project folder to:
 
 htdocs/
+
 Import the database into phpMyAdmin
 
 Start Apache & MySQL
